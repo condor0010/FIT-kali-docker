@@ -379,10 +379,11 @@ ENV NOVNCPORT 8080
 # Install custom packages
 # TODO: You can add your own packages here
 
-RUN apt-get -y install nano
+RUN apt-get -y install vim emacs
 
 # Entrypoint
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+WORKDIR /root/
 ENTRYPOINT [ "/entrypoint.sh" ]
