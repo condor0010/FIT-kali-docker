@@ -139,7 +139,9 @@ RUN apt-get install -y afl-* \
     bro-aux \
     zsh \
     zlib1g-dev \
-    zstd  --fix-missing && \
+    zstd \
+		ghidra \
+		burpsuite --fix-missing && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -180,7 +182,7 @@ RUN python3 -m pip install --no-cache-dir \
     unicorn \
     urh \
     z3-solver \
-    xortool 
+    xortool
 
 # install python2.7 pip
 RUN cd /opt/ && \
