@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# dumb rm stuff that somehow works
+rm /tmp/.X0-lock \
+	/tmp/.X11-unix/X0 \
+	> /dev/null 2>&1
+
 # Set password for VNC
 
 mkdir -p /root/.vnc/
