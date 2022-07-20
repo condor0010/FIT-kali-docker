@@ -383,6 +383,8 @@ ENV NOVNCPORT 8080
 
 RUN apt-get -y install vim emacs
 
+# fix power popup
+RUN apt remove xfce4-power-manager -y
 # Entrypoint
 
 COPY entrypoint.sh /entrypoint.sh
