@@ -372,11 +372,16 @@ ENV NOVNCPORT 8080
 
 RUN apt-get -y install vim emacs
 
-# fix power popup
+# fix anoying shit
 RUN apt remove xfce4-power-manager -y
-# Entrypoint
+RUN touch /root/.hushlogin
+RUN usermod --shell /bin/bash root
+RUN apt remove qterminal -y
+RUN apt install xfce4-terminal
+# Workdir
+WORKDIR /root/
 
+# Entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-WORKDIR /root/
 ENTRYPOINT [ "/entrypoint.sh" ]
