@@ -1,50 +1,25 @@
 #!/bin/bash
 
-# dumb rm stuff that somehow works
-rm /tmp/.X0-lock \
-	/tmp/.X11-unix/X0 \
-	> /dev/null 2>&1
+#VNCEXPOSE="0"
+#VNCPORT="5900"
+#VNCPWD="changeme"
+#VNCDISPLAY="1920x1080"
+#VNCDEPTH="16"
+#NOVNCPORT="8080"
 
 # Set password for VNC
 
-mkdir -p /root/.vnc/
-echo $VNCPWD | vncpasswd -f > /root/.vnc/passwd
-chmod 600 /root/.vnc/passwd
+mkdir -p /home/kali/.vnc/
+echo $VNCPWD | vncpasswd -f > /home/kali/.vnc/passwd
+chmod 600 /home/kali/.vnc/passwd
 
 # Start VNC server
 
-if [ $VNCEXPOSE = 1 ]
-then
-  # Expose VNC
-  vncserver :0 -rfbport $VNCPORT -geometry $VNCDISPLAY -depth $VNCDEPTH \
-    > /var/log/vncserver.log 2>&1
-else
-  # Localhost only
-  vncserver :0 -rfbport $VNCPORT -geometry $VNCDISPLAY -depth $VNCDEPTH -localhost \
-    > /var/log/vncserver.log 2>&1
-fi
+# Expose VNC
+vncserver :0 -rfbport $VNCPORT -geometry $VNCDISPLAY -depth $VNCDEPTH
 
 # Start noVNC server
 
-if [ ! -f /etc/ssl/certs/novnc_cert.pem -o ! -f /etc/ssl/private/novnc_key.pem ]
-then
-  openssl req -new -x509 -days 365 -nodes \
-    -subj "/C=US/ST=IL/L=Springfield/O=OpenSource/CN=localhost" \
-    -out /etc/ssl/certs/novnc_cert.pem -keyout /etc/ssl/private/novnc_key.pem \
-    > /dev/null 2>&1
-fi
-
-cat /etc/ssl/certs/novnc_cert.pem /etc/ssl/private/novnc_key.pem > /etc/ssl/private/novnc_combined.pem
-chmod 600 /etc/ssl/private/novnc_combined.pem
-
-/usr/share/novnc/utils/launch.sh --listen $NOVNCPORT --vnc localhost:$VNCPORT \
-  --cert /etc/ssl/private/novnc_combined.pem --ssl-only \
-  > /var/log/novnc.log 2>&1 &
+/usr/share/novnc/utils/launch.sh --listen $NOVNCPORT --vnc localhost:$VNCPORT
 
 echo "Launch your web browser and open https://localhost:9020/vnc.html"
-echo "Verify the certificate fingerprint:"
-openssl x509 -in /etc/ssl/certs/novnc_cert.pem -noout -fingerprint -sha256
-
-# Start shell
-
-/bin/bash
