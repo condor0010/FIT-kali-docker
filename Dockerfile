@@ -384,7 +384,7 @@ RUN apt install xfce4-terminal
 # Entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-ENTRYPOINT [ "/bin/bash" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
 
 
 # add kali user
