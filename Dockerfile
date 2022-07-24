@@ -380,7 +380,7 @@ RUN apt remove qterminal -y
 RUN apt install xfce4-terminal
 # Workdir
 WORKDIR /root/
-
+COPY config /root/.config/
 # Entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
