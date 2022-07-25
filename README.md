@@ -15,7 +15,8 @@ docker build -t cyber_vnc .
 ```
 The name "cyber_vnc" can be swapped out for whatever you'd like to name the image.
 
-Next:
+Next:  
+On your host machine create a folder/directory called cyber_class (or another name of your choosing).  
 (Order MATTERS for this line of commands)
 
 ```
