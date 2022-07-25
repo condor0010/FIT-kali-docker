@@ -4,13 +4,6 @@
 
 You can create a directory to clone the repo into or just use the one that gets cloned.
 
-Copy the HTTPS url found in the button shown below:
-
-<p align="center">
-<img src="images/Screenshot from 2022-07-24 02-11-57.png">
-</p>
-  
-
 In the terminal do the following commands:
 
 ```
