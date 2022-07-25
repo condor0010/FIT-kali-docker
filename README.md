@@ -7,10 +7,15 @@ You can create a directory to clone the repo into or just use the one that gets 
 
 Copy the HTTPS url found in the button shown below:
 ```
-<img align="center" src="images/Screenshot from 2022-07-24 02-11-57.png">
+
+<p align="center">
+<img src="images/Screenshot from 2022-07-24 02-11-57.png">
+</p>
+  
 ```
 git clone https://github.com/condor0010/FIT-kali-docker
 cd FIT-kali-docker
 docker build -t myKali .
 docker run -it -p 9020:8080 -p 9021:5900 myKali
+
 ```
