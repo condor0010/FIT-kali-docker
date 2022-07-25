@@ -375,7 +375,6 @@ RUN apt-get -y install vim emacs
 # fix anoying shit
 RUN apt remove xfce4-power-manager -y
 RUN touch /root/.hushlogin
-RUN usermod --shell /bin/bash root
 RUN apt remove qterminal -y
 RUN apt install xfce4-terminal
 
@@ -398,4 +397,5 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 USER kali
 WORKDIR /home/kali/
-
+RUN sudo usermod --shell /bin/bash kali
+COPY config /home/kali/.config/
