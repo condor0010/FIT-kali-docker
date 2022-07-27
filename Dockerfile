@@ -1,7 +1,7 @@
 FROM kalilinux/kali-rolling:latest
 
-LABEL website="https://github.com/iphoneintosh/kali-docker"
-LABEL description="Kali Linux with XFCE Desktop via VNC and noVNC in browser."
+LABEL website="https://github.com/condor0010/FIT-kali-docker"
+LABEL description="Kali Linux 2020.4 Docker Container with XFCE Desktop over VNC / noVNC, with the tools for the Florida Tech Cyber Security courses"
 
 # run updates and ensure the below stuff can be installed
 
@@ -363,7 +363,7 @@ ENV VNCEXPOSE 0
 ENV VNCPORT 5900
 ENV VNCPWD changeme
 ENV VNCDISPLAY 1920x1080
-ENV VNCDEPTH 16
+ENV VNCDEPTH 8
 
 ENV NOVNCPORT 8080
 
@@ -398,4 +398,3 @@ RUN groupadd --gid $USER_GID $USERNAME \
 USER kali
 WORKDIR /home/kali/
 RUN sudo usermod --shell /bin/bash kali
-COPY config /home/kali/.config/
