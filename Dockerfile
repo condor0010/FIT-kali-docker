@@ -83,7 +83,7 @@ RUN apt-get install -y afl-* \
     patchelf \ 
     pcapfix \
     pkg-config \
-    pngtools \
+ #   pngtools \
     pngcheck \
     powershell-empire \
     python2 \
