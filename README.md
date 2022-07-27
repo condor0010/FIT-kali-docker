@@ -29,9 +29,8 @@ Also if you plan to run more than one container of this image, use a different s
 
 Once the docker is running the vnc url should pop up (only on the first run)
 
-```
 http://localhost:9020/vnc.html
-```
+
 You might need to refresh the page to make the button work.
 
 The password should default to: changeme
