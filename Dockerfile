@@ -350,11 +350,11 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
 
 
 
+# get the full kali-desktop suite of software
+RUN apt-get -y install kali-linux-default
 
 # Install kali desktop
-
-ARG KALI_DESKTOP=xfce
-RUN apt-get -y install kali-desktop-${KALI_DESKTOP}
+RUN apt-get -y install kali-desktop-xfce
 RUN apt-get -y install tightvncserver dbus dbus-x11 novnc net-tools
 
 ENV USER root
@@ -366,6 +366,8 @@ ENV VNCDISPLAY 1920x1080
 ENV VNCDEPTH 8
 
 ENV NOVNCPORT 8080
+
+
 
 # Install custom packages
 # TODO: You can add your own packages here
