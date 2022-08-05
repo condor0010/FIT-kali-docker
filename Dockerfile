@@ -2,17 +2,19 @@ FROM kalilinux/kali-rolling:latest
 
 LABEL website="https://github.com/condor0010/FIT-kali-docker"
 LABEL description="Kali Linux 2020.4 Docker Container with XFCE Desktop over VNC / noVNC, with the tools for the Florida Tech Cyber Security courses"
+#OC stuff
 
-# run updates and ensure the below stuff can be installed
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=America/New_York
 
-ENV DEBIAN_FRONTEND noninteractive
+# autoupdate dist/missing packages
 RUN apt-get clean -y && apt-get update -y && apt-get dist-upgrade -y 
 RUN apt-get update --fix-missing -y
 RUN apt-get update -y && apt-get upgrade -y 
 
 # apt-get installs
 RUN apt-get update -y 
-RUN apt-get install -y afl-* \
+RUN apt-get install -y --ignore-missing afl-* \
     aircrack-ng \
     apt-utils \
     apktool \
@@ -83,7 +85,7 @@ RUN apt-get install -y afl-* \
     patchelf \ 
     pcapfix \
     pkg-config \
- #   pngtools \
+#    pngtools \
     pngcheck \
     powershell-empire \
     python2 \
@@ -128,9 +130,7 @@ RUN apt-get install -y afl-* \
     bro-aux \
     zsh \
     zlib1g-dev \
-    zstd \
-		ghidra \
-		burpsuite --fix-missing && \
+    zstd  --fix-missing && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -171,7 +171,7 @@ RUN python3 -m pip install --no-cache-dir \
     unicorn \
     urh \
     z3-solver \
-    xortool
+    xortool 
 
 # install python2.7 pip
 RUN cd /opt/ && \
@@ -347,14 +347,20 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -t crunch
 
 
+#OC stuff
+# Install kali packages
 
-
-
-# get the full kali-desktop suite of software
-RUN apt-get -y install kali-linux-default
+ARG KALI_METAPACKAGE=large
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update
+RUN apt-get -y upgrade
+RUN apt-get -y install kali-linux-${KALI_METAPACKAGE}
+RUN apt-get clean
 
 # Install kali desktop
-RUN apt-get -y install kali-desktop-xfce
+
+ARG KALI_DESKTOP=xfce
+RUN apt-get -y install kali-desktop-${KALI_DESKTOP}
 RUN apt-get -y install tightvncserver dbus dbus-x11 novnc net-tools
 
 ENV USER root
@@ -363,29 +369,35 @@ ENV VNCEXPOSE 0
 ENV VNCPORT 5900
 ENV VNCPWD changeme
 ENV VNCDISPLAY 1920x1080
-ENV VNCDEPTH 8
+ENV VNCDEPTH 16
 
 ENV NOVNCPORT 8080
 
+# Install other packages
+RUN apt-get -y install \
+  nano vim emacs \
+  firefox-esr chromium
 
-
-# Install custom packages
-# TODO: You can add your own packages here
-
-RUN apt-get -y install vim emacs
 
 # fix anoying shit
 RUN apt remove xfce4-power-manager -y
 RUN touch /root/.hushlogin
 RUN apt remove qterminal -y
-RUN apt install xfce4-terminal
-
+RUN apt install xfce4-terminal -y
 
 
 # Entrypoint
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
+
+
+
+
+
+
+
 
 # add kali user
 ARG USERNAME=kali
@@ -400,3 +412,4 @@ RUN groupadd --gid $USER_GID $USERNAME \
 USER kali
 WORKDIR /home/kali/
 RUN sudo usermod --shell /bin/bash kali
+COPY config /home/kali/.config/
