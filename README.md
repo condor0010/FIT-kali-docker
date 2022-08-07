@@ -1,7 +1,7 @@
 # Kali Linux 2020.4 Docker Container with XFCE Desktop over VNC / noVNC, with the tools for the Florida Tech Cyber Security courses
 ## Get it from DockerHub
 ```
-docker run -it -p 9020:8080 condor0010/cse3801
+docker run -ti -p 9020:8080 condor0010/cse3801
 ```
 
 ## Linux build and run instructions
