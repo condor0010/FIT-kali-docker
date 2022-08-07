@@ -24,7 +24,7 @@ On your host machine create a folder/directory called cyber_class (or another na
 (Order MATTERS for this line of commands)
 
 ```
-docker run -ti -p 9020:8080 -p 9021:8080 -v /home/cyber_class:/home/shared --name=cyber cyber_vnc
+docker run -ti -p 9020:8080 -v /home/cyber_class:/home/shared --name=cyber cyber_vnc
 ```
 
 Once again the you can choose the name you prefer after "--name" and it can match the image name you already used. The ones called "cyber_vnc" in the example commands have to be the same to work though. 
