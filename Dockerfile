@@ -350,17 +350,17 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
 #OC stuff
 # Install kali packages
 
-ARG KALI_METAPACKAGE=large
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt-get -y install kali-linux-${KALI_METAPACKAGE}
+# get metapackages
+RUN apt-get -y install \
+	kali-linux-large
+# get metapackages
 RUN apt-get clean
 
-# Install kali desktop
-
-ARG KALI_DESKTOP=xfce
-RUN apt-get -y install kali-desktop-${KALI_DESKTOP}
+# Install xfce desktop & vnc/ novnc stuff
+RUN apt-get -y install kali-desktop-xfce
 RUN apt-get -y install tightvncserver dbus dbus-x11 novnc net-tools
 
 ENV USER root
