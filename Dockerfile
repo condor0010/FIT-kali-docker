@@ -1,4 +1,4 @@
-FROM kalilinux/kali-rolling:latest
+FROM kalilinux/kali-last-release
 
 LABEL website="https://github.com/condor0010/FIT-kali-docker"
 LABEL description="Kali Linux 2020.4 Docker Container with XFCE Desktop over VNC / noVNC, with the tools for the Florida Tech Cyber Security courses"
@@ -361,7 +361,7 @@ RUN apt-get clean
 
 # Install xfce desktop & vnc/ novnc stuff
 RUN apt-get -y install kali-desktop-xfce
-RUN apt-get -y install tightvncserver dbus dbus-x11 novnc net-tools
+RUN apt-get -y install tigervnc-scraping-server dbus dbus-x11 novnc net-tools
 
 ENV USER root
 
