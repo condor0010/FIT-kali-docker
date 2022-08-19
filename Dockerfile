@@ -374,9 +374,11 @@ ENV VNCDEPTH 16
 ENV NOVNCPORT 8080
 
 # Install other packages
+RUN apt update
 RUN apt-get -y install \
   nano vim emacs \
-  firefox-esr chromium
+  firefox-esr chromium \
+  cowsay lolcat
 
 
 # fix anoying shit
@@ -413,3 +415,4 @@ USER kali
 WORKDIR /home/kali/
 RUN sudo usermod --shell /bin/bash kali
 COPY config /home/kali/.config/
+RUN echo "export PATH=/usr/games:$PATH" >> /home/kali/.bashrc
